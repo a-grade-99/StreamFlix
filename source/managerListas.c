@@ -1,4 +1,4 @@
-#include "listadefavoritos.h"
+#include "managerListas.h"
 
 // Função para remover um ID específico de uma lista de filmes
 void removerIdDaLista(char *lista, int id_remover) {

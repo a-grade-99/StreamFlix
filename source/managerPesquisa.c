@@ -1,6 +1,6 @@
 
 //pesquisadeconteudo.c
-#include "pesquisadeconteudo.h"
+#include "managerPesquisa.h"
 
 // Função para pesquisar filmes por título
 void pesquisarPorTitulo() {

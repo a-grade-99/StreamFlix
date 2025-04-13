@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "userinterface.h" 
-#include "edicaodeconteudo.h"
-#include "databasetomemory.h"
-#include "pesquisadeconteudo.h"
-#include "listadefavoritos.h"
+#include "mainInterface.h" 
+#include "edicaoFilmes.h"
+#include "storageManager.h"
+#include "managerPesquisa.h"
+#include "managerListas.h"
 #include "metricas.h"
-#include "player.h"
-#include "databasetools.h"
+#include "historicoFilmes.h"
+#include "dataUtils.h"
 
 // Diretório temporário para arquivos de teste
 #define TEST_FILES_DIR "./test_files/"

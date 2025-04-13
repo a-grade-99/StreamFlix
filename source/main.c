@@ -1,11 +1,11 @@
 #include <stdio.h>
-#include "userinterface.h" 
-#include "edicaodeconteudo.h"
-#include "databasetomemory.h"
-#include "pesquisadeconteudo.h"
-#include "listadefavoritos.h"
+#include "mainInterface.h" 
+#include "edicaoFilmes.h"
+#include "storageManager.h"
+#include "managerPesquisa.h"
+#include "managerListas.h"
 #include "metricas.h"
-#include "player.h"
+#include "historicoFilmes.h"
 
 int main() {
     char utilizador[10];

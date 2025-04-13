@@ -1,5 +1,5 @@
-#include "edicaodeconteudo.h"
-#include "databasetools.h"
+#include "edicaoFilmes.h"
+#include "dataUtils.h"
 
 // Interface para adicionar ou editar um filme
 void interfaceAdicionarOuEditarFilme(){

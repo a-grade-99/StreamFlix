@@ -2,7 +2,7 @@
 #ifndef PESQUISADECONTEUDO_H
 #define PESQUISADECONTEUDO_H
 
-#include "databasetomemory.h"
+#include "storageManager.h"
 
 #include <stdio.h>
 #include <stdlib.h>

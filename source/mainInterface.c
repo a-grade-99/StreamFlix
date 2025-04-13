@@ -1,4 +1,4 @@
-#include "userinterface.h"
+#include "mainInterface.h"
 
 // Função auxiliar para ler opções de menu com validação
 int lerOpcao(int min, int max) {

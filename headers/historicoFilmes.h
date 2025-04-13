@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "databasetomemory.h"
+#include "storageManager.h"
 
 void selecionarFilme();
 void listarHistorico();
