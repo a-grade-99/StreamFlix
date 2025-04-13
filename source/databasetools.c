@@ -1,5 +1,3 @@
-
-//databasetools.c
 #include "databasetools.h"
 
 #define FILE_PATH "filmes.csv"
@@ -9,14 +7,14 @@
 
 
 // Função para verificar se um título já existe no CSV
-int titulo_existe(char titulo[100]) {
+int tituloExiste(char titulo[100]) {
     FILE *arquivo = fopen(FILE_PATH, "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o ficheiro!\n");
         return -1;
     }
 
-    char linha[200], titulo_existente[100];
+    char linha[200], tituloExistente[100];
     int id, categoria, duracao, classificacao, visto;
 
     // Ignora o cabeçalho
@@ -24,8 +22,8 @@ int titulo_existe(char titulo[100]) {
 
     // Verifica se o título já existe
     while (fgets(linha, sizeof(linha), arquivo)) {
-        sscanf(linha, "%d,%99[^,],%d,%d,%d,%d", &id, titulo_existente, &categoria, &duracao, &classificacao, &visto);
-        if (strcmp(titulo_existente, titulo) == 0) {
+        sscanf(linha, "%d,%99[^,],%d,%d,%d,%d", &id, tituloExistente, &categoria, &duracao, &classificacao, &visto);
+        if (strcmp(tituloExistente, titulo) == 0) {
             fclose(arquivo);
             return 1; // O título já existe
         }
@@ -36,7 +34,7 @@ int titulo_existe(char titulo[100]) {
 }
 
 // Função para gerar um ID único
-int gerar_id_unico() {
+int gerarId() {
     FILE *arquivo = fopen(FILE_PATH, "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o ficheiro!\n");
@@ -70,7 +68,9 @@ int gerar_id_unico() {
     return id;
 }
 
-void gravar_dados_filmes_CSV(char titulo[100], char categoria, unsigned int duracao, unsigned int classificacao) {
+// Função para gravar dados de filmes no CSV
+// Se o filme já existir, atualiza os dados; se não existir, adiciona um novo filme
+void adicionarOuEditarFilme(char titulo[100], char categoria, unsigned int duracao, unsigned int classificacao) {
     FILE *arquivo = fopen(FILE_PATH, "r");
     FILE *temp = fopen(TEMP_FILE, "w");
 
@@ -79,7 +79,7 @@ void gravar_dados_filmes_CSV(char titulo[100], char categoria, unsigned int dura
         return;
     }
 
-    char linha[200], titulo_existente[100];
+    char linha[200], tituloExistente[100];
     int id, duracao_lida, classificacao_lida, visto;
     char categoria_lida;
     int encontrou = 0;
@@ -98,14 +98,14 @@ void gravar_dados_filmes_CSV(char titulo[100], char categoria, unsigned int dura
 
     // Percorre o CSV e atualiza se o título existir
     while (fgets(linha, sizeof(linha), arquivo)) {
-        int lidos = sscanf(linha, "%d,%99[^,],%c,%d,%d,%d", &id, titulo_existente, &categoria_lida, &duracao_lida, &classificacao_lida, &visto);
+        int lidos = sscanf(linha, "%d,%99[^,],%c,%d,%d,%d", &id, tituloExistente, &categoria_lida, &duracao_lida, &classificacao_lida, &visto);
         
         if (lidos != 6) {
             printf("Erro ao ler a linha: %s\n", linha);
             continue;
         }
 
-        if (strcmp(titulo_existente, titulo) == 0) {
+        if (strcmp(tituloExistente, titulo) == 0) {
             // Atualiza os dados do filme existente
             fprintf(temp, "%d,%s,%c,%u,%u,%d\n", id, titulo, categoria, duracao, classificacao, visto);
             encontrou = 1;
@@ -126,7 +126,7 @@ void gravar_dados_filmes_CSV(char titulo[100], char categoria, unsigned int dura
         if (linhas_copiadas > 0 && linha[strlen(linha) - 1] != '\n') {
             fprintf(temp, "\n");
         }
-        int novo_id = gerar_id_unico();
+        int novo_id = gerarId();
         int visto_novo = 0;  // Filme novo começa com "visto = 0"
         fprintf(temp, "%d,%s,%c,%u,%u,%d\n", novo_id, titulo, categoria, duracao, classificacao, visto_novo);
     }
@@ -139,7 +139,9 @@ void gravar_dados_filmes_CSV(char titulo[100], char categoria, unsigned int dura
     rename(TEMP_FILE, FILE_PATH);
 }
 
-void apagar_dados_filmes_CSV(char titulo[100]) {
+// Função para apagar dados de filmes do CSV
+// Se o filme existir, remove-o; se não existir, informa o usuário
+void apagarFilme(char titulo[100]) {
     FILE *db_filmes = fopen(FILE_PATH, "r");
     FILE *temp_file = fopen(TEMP_FILE, "w");
 
@@ -190,8 +192,9 @@ void apagar_dados_filmes_CSV(char titulo[100]) {
     }
 }
 
-void gravar_dados_utilizador_CSV(int id, char nome[10], int idade, unsigned int senha, char status, int atividade,
-                                 char historico[1000], char personalizada[1000], char favoritos[1000]) {
+// Função para guardar os dados de um utilizador no CSV
+void adicionarOuEditarUser(int id, char nome[10], int idade, unsigned int senha, char status, int atividade,
+                                char historico[1000], char personalizada[1000], char favoritos[1000]) {
     FILE *arquivo = fopen(UTILIZADOR_PATH, "r");
     FILE *temp = fopen(TEMP_FILE_UTILIZADOR, "w");
 
@@ -220,8 +223,8 @@ void gravar_dados_utilizador_CSV(int id, char nome[10], int idade, unsigned int 
         memset(favoritos_lida, 0, sizeof(favoritos_lida));
 
         int itens_lidos = sscanf(linha, "%d,%9[^,],%d,%u,%c,%d,%999[^,],%999[^,],%999[^,\n]",
-                                 &id_lido, nome_lido, &idade_lida, &senha_lida, &status_lido, &atividade_lida,
-                                 historico_lido, personalizada_lida, favoritos_lida);
+                                &id_lido, nome_lido, &idade_lida, &senha_lida, &status_lido, &atividade_lida,
+                                historico_lido, personalizada_lida, favoritos_lida);
 
         if (itens_lidos < 6) {
             printf("ERRO: Linha inválida ignorada: %s\n", linha);

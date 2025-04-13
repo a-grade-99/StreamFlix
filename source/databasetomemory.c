@@ -7,7 +7,8 @@
 Filme *lista_filmes = NULL;  // Ponteiro global para a lista ligada
 Utilizador *utilizador_logado = NULL;
 
-void carregar_na_memoria_filmes_CSV() {
+// A função lê o arquivo CSV, ignora o cabeçalho e armazena os dados numa lista ligada
+void guardarFilmesCsv() {
     FILE *arquivo = fopen(FILE_PATH, "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o ficheiro!\n");
@@ -21,7 +22,7 @@ void carregar_na_memoria_filmes_CSV() {
     // Ignorar o cabeçalho
     fgets(linha, sizeof(linha), arquivo);
 
-    // Ler cada linha e armazenar na lista ligada
+    // Ler cada linha e guardar na lista
     while (fgets(linha, sizeof(linha), arquivo)) {
         sscanf(linha, "%d,%99[^,],%c,%d,%d,%d", &id, titulo, &categoria, &duracao, &classificacao, &visto);
 
@@ -40,14 +41,15 @@ void carregar_na_memoria_filmes_CSV() {
         novo_filme->duracao = duracao;
         novo_filme->classificacao = classificacao;
         novo_filme->visto = visto;
-        novo_filme->prox = lista_filmes;  // Insere no início da lista
+        novo_filme->prox = lista_filmes; 
         lista_filmes = novo_filme;
     }
 
     fclose(arquivo);
 }
 
-void liberar_memoria_filmes() {
+// Liberta a memória alocada dinamicamente para a lista de filmes.
+void limparListaFilmes() {
     Filme *atual = lista_filmes;
     while (atual != NULL) {
         Filme *temp = atual;
@@ -57,7 +59,8 @@ void liberar_memoria_filmes() {
     lista_filmes = NULL;
 }
 
-int carregar_na_memoria_utilizador_CSV(char utilizador_digitado[10], unsigned int senha_digitada) {
+// Autentica um utilizador com base no nome e senha fornecidos, lendo os dados de um arquivo CSV.
+int autenticarUtilizadorCsv(char utilizador_digitado[10], unsigned int senha_digitada) {
     FILE *arquivo = fopen(UTILIZADOR_PATH, "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o ficheiro!\n");

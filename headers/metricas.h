@@ -9,9 +9,9 @@
 #include <ctype.h>  
 #include "databasetomemory.h"
 
-void conteudos_mais_assistidos();
-void categorias_mais_populares();
-void utilizadores_mais_ativos();
+void filmesAssistidos();
+void categoriasPopulares();
+void usersAtivos();
 
 
 #endif

@@ -3,7 +3,8 @@
 
 #define UTILIZADOR_PATH "users.csv"
 
-void conteudos_mais_assistidos() {
+// Função para mostrar as métricas do utilizador
+void filmesAssistidos() {
 
     system("cls");
 
@@ -40,12 +41,12 @@ void conteudos_mais_assistidos() {
 
     printf("\n===================================================\n\n");
 
-    printf("Aperte Qualquer Tecla para voltar ao menu: ");
+    printf("Clique em Qualquer Tecla para voltar ao menu: ");
     getchar();
 }
 
-
-void categorias_mais_populares() {
+// Função para mostrar as categorias mais populares
+void categoriasPopulares() {
 
     system("cls");
 
@@ -102,7 +103,8 @@ void categorias_mais_populares() {
     getchar();  // Aguarda entrada do usuário
 }
 
-void utilizadores_mais_ativos() {
+// Função para mostrar os utilizadores mais ativos
+void usersAtivos() {
 
     system("cls");
 

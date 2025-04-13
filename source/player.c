@@ -5,7 +5,8 @@
 #define FILE_PATH "filmes.csv"
 #define TEMP_FILE "temp.csv"
 
-void selecionar_para_assistir() {
+// Função para selecionar um filme para assistir
+void selecionarFilme() {
 
     system("cls");
 
@@ -130,7 +131,8 @@ void selecionar_para_assistir() {
     getchar();
 }
 
-void listar_historico() {
+// Função para listar o histórico de visualizações
+void listarHistorico() {
 
     system("cls");
 
@@ -163,7 +165,8 @@ void listar_historico() {
     getchar();
 }
 
-void filmes_recomendados() {
+// Função para recomendar filmes com base no histórico
+void filmesRecomendados() {
 
     system("cls");
 

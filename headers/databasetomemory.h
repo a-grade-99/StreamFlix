@@ -35,8 +35,8 @@ typedef struct Utilizador{
 extern Filme *lista_filmes;
 extern Utilizador *utilizador_logado;
 
-void carregar_na_memoria_filmes_CSV();
-void liberar_memoria_filmes();
-int carregar_na_memoria_utilizador_CSV(char utilizador_digitado[10], unsigned int senha_digitada);
+void guardarFilmesCsv();
+void limparListaFilmes();
+int autenticarUtilizadorCsv(char utilizador_digitado[10], unsigned int senha_digitada);
 
 #endif

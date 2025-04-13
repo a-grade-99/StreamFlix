@@ -16,8 +16,8 @@ int lerOpcao(int min, int max) {
     return opcao;
 }
 
-// Menu login
-void menu_login(char *utilizador, unsigned int *senha) {
+// Interface de login
+void interfaceLogin(char *utilizador, unsigned int *senha) {
     system("cls");
     printf("\n\n============ LOGIN ============\n\n");
     
@@ -31,8 +31,8 @@ void menu_login(char *utilizador, unsigned int *senha) {
     while (getchar() != '\n'); // Limpa o buffer de entrada
 }
 
-// Menu principal
-int menu_principal(char *utilizador) {
+// Interface para menu principal
+int interfaceMenuPrincipal(char *utilizador) {
     system("cls");
     printf("\n\n============ MENU PRINCIPAL ============\n\n");
     printf("Olá: %s\n\n", utilizador);
@@ -47,8 +47,8 @@ int menu_principal(char *utilizador) {
     return lerOpcao(0, 5);
 }
 
-// Menu de edição ou adição de Filmes
-int menu_edicao_de_conteudos() {
+// Interface para menu de edição de conteúdos
+int interfaceEdicaoFIlmes() {
     system("cls");
     printf("\n\n============ ADICIONAR OU EDITAR FILME ============\n");
     printf("1 ==> Adicionar Filme Ou Editar Filme.\n");
@@ -59,8 +59,8 @@ int menu_edicao_de_conteudos() {
     return lerOpcao(0, 2);
 }
 
-// Menu de pesquisa
-int menu_de_pesquisa() {
+// Interface para menu de pesquisa
+int interfaceMenuPesquisa() {
     system("cls");
     printf("\n\n================= PESQUISA =================\n");
     printf("1 ==> Pesquisar por Título.\n");
@@ -72,8 +72,8 @@ int menu_de_pesquisa() {
     return lerOpcao(0, 3);
 }
 
-// Menu de lista de favoritos
-int menu_lista_favoritos() {
+// Interface para menu da lista de favoritos
+int interfaceMenuFavoritos() {
     system("cls");
     printf("\n\n========================== FAVORITOS ==========================\n");
     printf("1 ==> Criar Lista de Filmes Personalizada ou de Favoritos.\n");
@@ -85,8 +85,8 @@ int menu_lista_favoritos() {
     return lerOpcao(0, 3);
 }
 
-// Menu de métricas
-int menu_de_metricas() {
+// Interface para menu de métricas
+int interfaceMetricas() {
     system("cls");
     printf("\n\n============ AS SUAS METRICAS ==============\n");
     printf("1 ==> Filmes Mais Assistidos.\n");
@@ -98,8 +98,8 @@ int menu_de_metricas() {
     return lerOpcao(0, 3);
 }
 
-// Menu Player
-int menu_player() {
+// Interface para menu de assistir filme
+int interfaceAssistir() {
     system("cls");
     printf("\n\n============== VEJA UM FILME ==============\n");
     printf("1 ==> Selecione o Filme Para Assistir.\n");

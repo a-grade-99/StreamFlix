@@ -53,7 +53,7 @@ void setup_test_environment() {
     fclose(users_test);
     
     // Carrega os dados na memória
-    carregar_na_memoria_filmes_CSV();
+    guardarFilmesCsv();
     
     // Prepara captura de saída para testes
     output_buffer = tmpfile();
@@ -68,7 +68,7 @@ void teardown_test_environment() {
     
     // Libera memória alocada durante os testes
     if (lista_filmes != NULL) {
-        liberar_memoria_filmes();
+        limparListaFilmes();
     }
     
     if (utilizador_logado != NULL) {
@@ -107,7 +107,7 @@ void test_login_and_data_loading() {
     char utilizador[10] = "admin";
     unsigned int senha = 12345;
     
-    int login_result = carregar_na_memoria_utilizador_CSV(utilizador, senha);
+    int login_result = autenticarUtilizadorCsv(utilizador, senha);
     assert(login_result == 1);
     assert(utilizador_logado != NULL);
     
@@ -128,7 +128,7 @@ void test_viewing_metrics_integration() {
     // Prepara o ambiente: login de usuário
     char utilizador[10] = "admin";
     unsigned int senha = 12345;
-    carregar_na_memoria_utilizador_CSV(utilizador, senha);
+    autenticarUtilizadorCsv(utilizador, senha);
     
     // Obtém contagem inicial de visualizações para um filme
     Filme *filme_teste = NULL;
@@ -141,7 +141,7 @@ void test_viewing_metrics_integration() {
     assert(filme_teste != NULL);
     unsigned int visto_inicial = filme_teste->visto;
     
-    // Simula a visualização de um filme (não podemos chamar selecionar_para_assistir diretamente)
+    // Simula a visualização de um filme (não podemos chamar selecionarFilme diretamente)
     // Manualmente incrementamos o contador e atualizamos o histórico
     filme_teste->visto++;
     
@@ -170,7 +170,7 @@ void test_content_edit_and_search_integration() {
     // Prepara o ambiente: login de usuário
     char utilizador[10] = "admin";
     unsigned int senha = 12345;
-    carregar_na_memoria_utilizador_CSV(utilizador, senha);
+    autenticarUtilizadorCsv(utilizador, senha);
     
     // Conta número inicial de filmes
     int filmes_iniciais = 0;
@@ -185,11 +185,11 @@ void test_content_edit_and_search_integration() {
     unsigned int classificacao = 14;
     
     // Grava no CSV
-    gravar_dados_filmes_CSV(titulo_novo, categoria, duracao, classificacao);
+    adicionarOuEditarFilme(titulo_novo, categoria, duracao, classificacao);
     
     // Recarrega os filmes para atualizar a memória
-    liberar_memoria_filmes();
-    carregar_na_memoria_filmes_CSV();
+    limparListaFilmes();
+    guardarFilmesCsv();
     
     // Conta número de filmes após adição
     int filmes_apos_adicao = 0;
@@ -219,7 +219,7 @@ void test_favorites_and_recommendations_integration() {
     // Prepara o ambiente: login de usuário
     char utilizador[10] = "user1";
     unsigned int senha = 54321;
-    carregar_na_memoria_utilizador_CSV(utilizador, senha);
+    autenticarUtilizadorCsv(utilizador, senha);
     
     // Verifica os favoritos iniciais
     char favoritos_iniciais[1000];
@@ -227,7 +227,7 @@ void test_favorites_and_recommendations_integration() {
     assert(strcmp(favoritos_iniciais, "1-3") == 0);
     
     // Remove um ID dos favoritos
-    remover_id_da_lista(utilizador_logado->favoritos, 1);
+    removerIdDaLista(utilizador_logado->favoritos, 1);
     assert(strcmp(utilizador_logado->favoritos, "3") == 0);
     
     // Adiciona um novo ID aos favoritos
@@ -244,7 +244,7 @@ void test_favorites_and_recommendations_integration() {
     assert(strcmp(utilizador_logado->favoritos, "3-2") == 0);
     
     // Salva as alterações
-    gravar_dados_utilizador_CSV(
+    adicionarOuEditarUser(
         utilizador_logado->id, utilizador_logado->utilizador, utilizador_logado->idade, utilizador_logado->senha,
         utilizador_logado->status, utilizador_logado->atividade, utilizador_logado->historico,
         utilizador_logado->personalizada, utilizador_logado->favoritos
@@ -255,7 +255,7 @@ void test_favorites_and_recommendations_integration() {
     utilizador_logado = NULL;
     
     // Faz login novamente para carregar os dados atualizados
-    carregar_na_memoria_utilizador_CSV(utilizador, senha);
+    autenticarUtilizadorCsv(utilizador, senha);
     assert(strcmp(utilizador_logado->favoritos, "3-2") == 0);
     
     printf("OK\n");
@@ -268,7 +268,7 @@ void test_history_and_metrics_integration() {
     // Prepara o ambiente: login de usuário
     char utilizador[10] = "admin";
     unsigned int senha = 12345;
-    carregar_na_memoria_utilizador_CSV(utilizador, senha);
+    autenticarUtilizadorCsv(utilizador, senha);
     
     // Verifica histórico inicial
     assert(strcmp(utilizador_logado->historico, "1-2-3") == 0);
@@ -303,7 +303,7 @@ void test_history_and_metrics_integration() {
     assert(strcmp(utilizador_logado->historico, "1-2-3-1") == 0);
     
     // Atualiza o CSV
-    gravar_dados_utilizador_CSV(
+    adicionarOuEditarUser(
         utilizador_logado->id, utilizador_logado->utilizador, utilizador_logado->idade, utilizador_logado->senha,
         utilizador_logado->status, utilizador_logado->atividade, utilizador_logado->historico,
         utilizador_logado->personalizada, utilizador_logado->favoritos
@@ -313,7 +313,7 @@ void test_history_and_metrics_integration() {
     free(utilizador_logado);
     utilizador_logado = NULL;
 
-    carregar_na_memoria_utilizador_CSV(utilizador, senha);
+    autenticarUtilizadorCsv(utilizador, senha);
     assert(strcmp(utilizador_logado->historico, "1-2-3-1") == 0);
     assert(utilizador_logado->atividade == 11); // anteriormente era 10
 

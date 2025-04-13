@@ -8,8 +8,8 @@
 
 #include "databasetomemory.h"
 
-void selecionar_para_assistir();
-void listar_historico();
-void filmes_recomendados();
+void selecionarFilme();
+void listarHistorico();
+void filmesRecomendados();
 
 #endif

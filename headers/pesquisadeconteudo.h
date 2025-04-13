@@ -8,9 +8,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-void pesquisar_por_titulo();
-void pesquisar_por_categoria();
-void pesquisar_por_faixa_etaria();
+void pesquisarPorTitulo();
+void pesquisarPorCategoria();
+void pesquisarPorFaixaEtaria();
 
 
 #endif

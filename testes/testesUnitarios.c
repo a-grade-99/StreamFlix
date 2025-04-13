@@ -43,7 +43,7 @@ void teardown_test_environment() {
     
     // Libera memória alocada durante os testes
     if (lista_filmes != NULL) {
-        liberar_memoria_filmes();
+        limparListaFilmes();
     }
     
     if (utilizador_logado != NULL) {
@@ -61,17 +61,17 @@ void mock_system_cls() {
 // Testes para databasetomemory.c
 //=======================
 
-void test_carregar_na_memoria_filmes_CSV() {
+void test_guardarFilmesCsv() {
     #define FILE_PATH TEST_FILME_PATH
     
-    printf("Testando carregar_na_memoria_filmes_CSV()... ");
+    printf("Testando guardarFilmesCsv()... ");
     
     // Redireciona para o arquivo de teste
     char original_path[100];
     strcpy(original_path, FILE_PATH);
     
     // Executa a função a ser testada
-    carregar_na_memoria_filmes_CSV();
+    guardarFilmesCsv();
     
     // Verifica se os filmes foram carregados corretamente
     Filme *filme = lista_filmes;
@@ -111,13 +111,13 @@ void test_carregar_na_memoria_filmes_CSV() {
     
     // Restaura FILE_PATH e libera memória
     #undef FILE_PATH
-    liberar_memoria_filmes();
+    limparListaFilmes();
     
     printf("OK\n");
 }
 
-void test_liberar_memoria_filmes() {
-    printf("Testando liberar_memoria_filmes()... ");
+void test_limparListaFilmes() {
+    printf("Testando limparListaFilmes()... ");
     
     // Preparação - cria manualmente alguns filmes na memória
     Filme *filme1 = (Filme *)malloc(sizeof(Filme));
@@ -134,7 +134,7 @@ void test_liberar_memoria_filmes() {
     lista_filmes = filme1;
     
     // Executa a função a ser testada
-    liberar_memoria_filmes();
+    limparListaFilmes();
     
     // Verifica se a lista foi limpa
     assert(lista_filmes == NULL);
@@ -142,10 +142,10 @@ void test_liberar_memoria_filmes() {
     printf("OK\n");
 }
 
-void test_carregar_na_memoria_utilizador_CSV() {
+void test_autenticarUtilizadorCsv() {
     #define UTILIZADOR_PATH TEST_USER_PATH
     
-    printf("Testando carregar_na_memoria_utilizador_CSV()... ");
+    printf("Testando autenticarUtilizadorCsv()... ");
     
     // Redireciona para o arquivo de teste
     char original_path[100];
@@ -155,7 +155,7 @@ void test_carregar_na_memoria_utilizador_CSV() {
     char utilizador[10] = "admin";
     unsigned int senha = 12345;
     
-    int resultado = carregar_na_memoria_utilizador_CSV(utilizador, senha);
+    int resultado = autenticarUtilizadorCsv(utilizador, senha);
     
     // Verifica se o login foi bem-sucedido
     assert(resultado == 1);
@@ -176,7 +176,7 @@ void test_carregar_na_memoria_utilizador_CSV() {
     
     // Testa login com credenciais incorretas
     utilizador[0] = 'x';
-    resultado = carregar_na_memoria_utilizador_CSV(utilizador, senha);
+    resultado = autenticarUtilizadorCsv(utilizador, senha);
     assert(resultado == 0);
     assert(utilizador_logado == NULL);
     
@@ -190,10 +190,10 @@ void test_carregar_na_memoria_utilizador_CSV() {
 // Testes para databasetools.c
 //=======================
 
-void test_titulo_existe() {
+void test_tituloExiste() {
     #define FILE_PATH TEST_FILME_PATH
     #define TEMP_FILE TEST_FILES_DIR "temp_test.csv"
-    printf("Testando titulo_existe()... ");
+    printf("Testando tituloExiste()... ");
     
     // Redireciona para o arquivo de teste
     char original_path[100];
@@ -201,11 +201,11 @@ void test_titulo_existe() {
     #define FILE_PATH TEST_FILME_PATH
     
     // Testa com um título que existe
-    int resultado = titulo_existe("Filme Teste 1");
+    int resultado = tituloExiste("Filme Teste 1");
     assert(resultado == 1);
     
     // Testa com um título que não existe
-    resultado = titulo_existe("Filme Inexistente");
+    resultado = tituloExiste("Filme Inexistente");
     assert(resultado == 0);
     
     // Restaura FILE_PATH
@@ -214,10 +214,10 @@ void test_titulo_existe() {
     printf("OK\n");
 }
 
-void test_gerar_id_unico() {
+void test_gerarId() {
     #define FILE_PATH TEST_FILME_PATH
     #define TEMP_FILE TEST_FILES_DIR "temp_test.csv"
-    printf("Testando gerar_id_unico()... ");
+    printf("Testando gerarId()... ");
     
     // Redireciona para o arquivo de teste
     char original_path[100];
@@ -225,7 +225,7 @@ void test_gerar_id_unico() {
     #define FILE_PATH TEST_FILME_PATH
     
     // Gera um novo ID
-    int novo_id = gerar_id_unico();
+    int novo_id = gerarId();
     
     // Verifica se o ID é maior que o último ID no arquivo (3)
     assert(novo_id > 3);
@@ -236,10 +236,10 @@ void test_gerar_id_unico() {
     printf("OK\n");
 }
 
-void test_gravar_dados_filmes_CSV() {
+void test_adicionarOuEditarFilme() {
     #define FILE_PATH TEST_FILME_PATH
     #define TEMP_FILE TEST_FILES_DIR "temp_test.csv"
-    printf("Testando gravar_dados_filmes_CSV()... ");
+    printf("Testando adicionarOuEditarFilme()... ");
     
     // Redireciona para os arquivos de teste
     char original_path[100];
@@ -253,7 +253,7 @@ void test_gravar_dados_filmes_CSV() {
     unsigned int duracao = 110;
     unsigned int classificacao = 14;
     
-    gravar_dados_filmes_CSV(titulo, categoria, duracao, classificacao);
+    adicionarOuEditarFilme(titulo, categoria, duracao, classificacao);
     
     // Verifica se o filme foi adicionado corretamente
     FILE *arquivo = fopen(TEST_FILME_PATH, "r");
@@ -287,11 +287,11 @@ void test_gravar_dados_filmes_CSV() {
     printf("OK\n");
 }
 
-void test_apagar_dados_filmes_CSV() {
+void test_apagarFilme() {
     #define FILE_PATH TEST_FILME_PATH
     #define TEMP_FILE TEST_FILES_DIR "temp_test.csv"
 
-    printf("Testando apagar_dados_filmes_CSV()... ");
+    printf("Testando apagarFilme()... ");
     
     // Redireciona para os arquivos de teste
     char original_path[100];
@@ -302,7 +302,7 @@ void test_apagar_dados_filmes_CSV() {
     // Remove um filme existente
     char titulo[100] = "Filme Teste 1";
     
-    apagar_dados_filmes_CSV(titulo);
+    apagarFilme(titulo);
     
     // Verifica se o filme foi removido
     FILE *arquivo = fopen(TEST_FILME_PATH, "r");
@@ -344,46 +344,46 @@ void test_apagar_dados_filmes_CSV() {
 // Testes para listadefavoritos.c
 //=======================
 
-void test_id_ja_existe() {
-    printf("Testando id_ja_existe()... ");
+void test_idExiste() {
+    printf("Testando idExiste()... ");
     
     // Testes com diferentes padrões de listas
-    assert(id_ja_existe("", 1) == 0);  // Lista vazia
-    assert(id_ja_existe("1", 1) == 1);  // ID único
-    assert(id_ja_existe("1-2-3", 2) == 1);  // ID no meio
-    assert(id_ja_existe("1-2-3", 3) == 1);  // ID no final
-    assert(id_ja_existe("1-2-3", 4) == 0);  // ID não existe
-    assert(id_ja_existe("10-20-30", 1) == 0);  // Prevenir falsos positivos com prefixos
+    assert(idExiste("", 1) == 0);  // Lista vazia
+    assert(idExiste("1", 1) == 1);  // ID único
+    assert(idExiste("1-2-3", 2) == 1);  // ID no meio
+    assert(idExiste("1-2-3", 3) == 1);  // ID no final
+    assert(idExiste("1-2-3", 4) == 0);  // ID não existe
+    assert(idExiste("10-20-30", 1) == 0);  // Prevenir falsos positivos com prefixos
     
     printf("OK\n");
 }
 
-void test_remover_id_da_lista() {
-    printf("Testando remover_id_da_lista()... ");
+void test_removerIdDaLista() {
+    printf("Testando removerIdDaLista()... ");
     
     // Testa remoção do primeiro ID
     char lista1[1000] = "1-2-3";
-    remover_id_da_lista(lista1, 1);
+    removerIdDaLista(lista1, 1);
     assert(strcmp(lista1, "2-3") == 0);
     
     // Testa remoção do ID do meio
     char lista2[1000] = "1-2-3";
-    remover_id_da_lista(lista2, 2);
+    removerIdDaLista(lista2, 2);
     assert(strcmp(lista2, "1-3") == 0);
     
     // Testa remoção do último ID
     char lista3[1000] = "1-2-3";
-    remover_id_da_lista(lista3, 3);
+    removerIdDaLista(lista3, 3);
     assert(strcmp(lista3, "1-2") == 0);
     
     // Testa remoção de ID inexistente
     char lista4[1000] = "1-2-3";
-    remover_id_da_lista(lista4, 4);
+    removerIdDaLista(lista4, 4);
     assert(strcmp(lista4, "1-2-3") == 0);
     
     // Testa remoção do único ID
     char lista5[1000] = "1";
-    remover_id_da_lista(lista5, 1);
+    removerIdDaLista(lista5, 1);
     assert(strcmp(lista5, "") == 0);
     
     printf("OK\n");
@@ -408,19 +408,19 @@ void run_all_tests() {
     setup_test_environment();
     
     // Testes para databasetomemory.c
-    test_carregar_na_memoria_filmes_CSV();
-    test_liberar_memoria_filmes();
-    test_carregar_na_memoria_utilizador_CSV();
+    test_guardarFilmesCsv();
+    test_limparListaFilmes();
+    test_autenticarUtilizadorCsv();
     
     // Testes para databasetools.c
-    test_titulo_existe();
-    test_gerar_id_unico();
-    test_gravar_dados_filmes_CSV();
-    test_apagar_dados_filmes_CSV();
+    test_tituloExiste();
+    test_gerarId();
+    test_adicionarOuEditarFilme();
+    test_apagarFilme();
     
     // Testes para listadefavoritos.c
-    test_id_ja_existe();
-    test_remover_id_da_lista();
+    test_idExiste();
+    test_removerIdDaLista();
     
     // Limpeza do ambiente de testes
     teardown_test_environment();

@@ -9,14 +9,14 @@
 int lerOpcao(int min, int max);
 
 // Função de login corrigida
-void menu_login(char *utilizador, unsigned int *senha);
+void interfaceLogin(char *utilizador, unsigned int *senha);
 
 // Menus aprimorados
-int menu_principal(char *utilizador);
-int menu_edicao_de_conteudos();
-int menu_de_pesquisa();
-int menu_lista_favoritos();
-int menu_de_metricas();
-int menu_player();
+int interfaceMenuPrincipal(char *utilizador);
+int interfaceEdicaoFIlmes();
+int interfaceMenuPesquisa();
+int interfaceMenuFavoritos();
+int interfaceMetricas();
+int interfaceAssistir();
 
 #endif

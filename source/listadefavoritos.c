@@ -1,9 +1,7 @@
-
-//listadefavoritos.c
 #include "listadefavoritos.h"
 
 // Função para remover um ID específico de uma lista de filmes
-void remover_id_da_lista(char *lista, int id_remover) {
+void removerIdDaLista(char *lista, int id_remover) {
     char nova_lista[1000] = "";
     char *token = strtok(lista, "-");
 
@@ -18,12 +16,12 @@ void remover_id_da_lista(char *lista, int id_remover) {
         token = strtok(NULL, "-");
     }
 
-    strcpy(lista, nova_lista); // Atualiza a lista com os IDs restantes
+    strcpy(lista, nova_lista);
 }
 
 // Função para verificar se um ID já está na lista
-int id_ja_existe(const char *lista, int id) {
-    if (strlen(lista) == 0) return 0; // Lista vazia, ID não existe
+int idExiste(const char *lista, int id) {
+    if (strlen(lista) == 0) return 0;
 
     char temp_lista[1000];
     snprintf(temp_lista, sizeof(temp_lista), "-%s-", lista); // Adiciona "-" no início e fim para evitar falsos positivos
@@ -34,8 +32,8 @@ int id_ja_existe(const char *lista, int id) {
     return strstr(temp_lista, id_str) != NULL; // Retorna 1 se o ID já existir, 0 caso contrário
 }
 
-
-void criar_lista_personalizada_favoritos() {
+// Função para criar uma lista personalizada ou adicionar aos favoritos
+void criarLista() {
     int escolha, id_filme;
     char nova_lista[1020];
 
@@ -63,7 +61,7 @@ void criar_lista_personalizada_favoritos() {
 
     char *lista_selecionada = (escolha == 1) ? utilizador_logado->personalizada : utilizador_logado->favoritos;
 
-    if (id_ja_existe(lista_selecionada, id_filme)) {
+    if (idExiste(lista_selecionada, id_filme)) {
         printf("\n\nErro: O filme com ID %d já está na lista!\n", id_filme);
         printf("\n==========================================\n\n");
         printf("Aperte qualquer tecla para voltar ao menu: ");
@@ -80,7 +78,7 @@ void criar_lista_personalizada_favoritos() {
     strcpy(lista_selecionada, nova_lista);
 
     // Atualiza o CSV
-    gravar_dados_utilizador_CSV(
+    adicionarOuEditarUser(
         utilizador_logado->id, utilizador_logado->utilizador, utilizador_logado->idade, utilizador_logado->senha,
         utilizador_logado->status, utilizador_logado->atividade, utilizador_logado->historico,
         utilizador_logado->personalizada, utilizador_logado->favoritos
@@ -92,8 +90,8 @@ void criar_lista_personalizada_favoritos() {
     getchar();
 }
 
-
-void consultar_lista_personalizada_ou_favoritos() {
+// Função para consultar a lista personalizada ou de favoritos
+void consultarLista() {
     int escolha;
 
     if (utilizador_logado == NULL) {
@@ -167,7 +165,8 @@ void consultar_lista_personalizada_ou_favoritos() {
     getchar();
 }
 
-void editar_ou_apagar_lista_personalizada_ou_favorito() {
+// Função para editar ou apagar a lista personalizada ou de favoritos
+void editarOuApagarLista() {
     int escolha, id_remover;
 
     if (utilizador_logado == NULL) {
@@ -220,7 +219,7 @@ void editar_ou_apagar_lista_personalizada_ou_favorito() {
         scanf("%d", &id_remover);
         while (getchar() != '\n'); // Limpa o buffer de entrada
 
-        remover_id_da_lista(lista_selecionada, id_remover);
+        removerIdDaLista(lista_selecionada, id_remover);
         printf("\nFilme removido da lista!\n");
     } else if (id_remover == 2) {
         // Apagar toda a lista
@@ -231,7 +230,7 @@ void editar_ou_apagar_lista_personalizada_ou_favorito() {
     }
 
     // Atualiza os dados no CSV
-    gravar_dados_utilizador_CSV(
+    adicionarOuEditarUser(
         utilizador_logado->id, utilizador_logado->utilizador, utilizador_logado->idade, utilizador_logado->senha,
         utilizador_logado->status, utilizador_logado->atividade, utilizador_logado->historico,
         utilizador_logado->personalizada, utilizador_logado->favoritos

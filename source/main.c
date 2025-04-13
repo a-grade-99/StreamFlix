@@ -11,12 +11,12 @@ int main() {
     char utilizador[10];
     unsigned int senha;
 
-    carregar_na_memoria_filmes_CSV();
+    guardarFilmesCsv();
     
     while(1){
         // Chama o menu de login
-        menu_login(utilizador, &senha);
-        if(carregar_na_memoria_utilizador_CSV(utilizador, senha) == 1){
+        interfaceLogin(utilizador, &senha);
+        if(autenticarUtilizadorCsv(utilizador, senha) == 1){
             break;
         }
     }
@@ -24,90 +24,90 @@ int main() {
     while(1){
 
         // Exibe o menu principal e pega a opção escolhida
-        int opcao = menu_principal(utilizador_logado->utilizador);
+        int opcao = interfaceMenuPrincipal(utilizador_logado->utilizador);
 
         // Processa a escolha do usuário
         switch (opcao) {
             case 1:
                 if (utilizador_logado->status != 'a'){break;}
-                opcao = menu_edicao_de_conteudos();
+                opcao = interfaceEdicaoFIlmes();
                 switch (opcao){
                     case 1:
-                        liberar_memoria_filmes();
-                        adicionar_editar_conteudo();
-                        carregar_na_memoria_filmes_CSV();
+                        limparListaFilmes();
+                        interfaceAdicionarOuEditarFilme();
+                        guardarFilmesCsv();
                         break;
                     case 2:
-                        liberar_memoria_filmes();
-                        remover_conteudo();
-                        carregar_na_memoria_filmes_CSV();
+                        limparListaFilmes();
+                        interfaceRemoverFilme();
+                        guardarFilmesCsv();
                         break;
                 }
                 break;
             case 2:
-                opcao = menu_de_pesquisa();
+                opcao = interfaceMenuPesquisa();
                 switch (opcao){
                     case 1:
-                        pesquisar_por_titulo();
+                        pesquisarPorTitulo();
                         utilizador_logado->atividade ++;
                         break;
                     case 2:
-                        pesquisar_por_categoria();
+                        pesquisarPorCategoria();
                         utilizador_logado->atividade ++;
                         break;
                     case 3:
-                        pesquisar_por_faixa_etaria();
+                        pesquisarPorFaixaEtaria();
                         utilizador_logado->atividade ++;
                         break;
                 }
                 break;
             case 3:
-                opcao = menu_lista_favoritos();
+                opcao = interfaceMenuFavoritos();
                 switch (opcao){
                     case 1:
-                        criar_lista_personalizada_favoritos();
+                        criarLista();
                         utilizador_logado->atividade ++;
                         break;
                     case 2:
-                        consultar_lista_personalizada_ou_favoritos();
+                        consultarLista();
                         utilizador_logado->atividade ++;
                         break;
                     case 3:
-                        editar_ou_apagar_lista_personalizada_ou_favorito();
+                        editarOuApagarLista();
                         utilizador_logado->atividade ++;
                         break;
                 }
                 break;
             case 4:
-                opcao = menu_de_metricas();
+                opcao = interfaceMetricas();
                 switch (opcao){
                     case 1:
-                        conteudos_mais_assistidos();
+                        filmesAssistidos();
                         utilizador_logado->atividade ++;
                         break;
                     case 2:
-                        categorias_mais_populares();
+                        categoriasPopulares();
                         utilizador_logado->atividade ++;
                         break;
                     case 3:
-                        utilizadores_mais_ativos();
+                        usersAtivos();
                         utilizador_logado->atividade ++;
                         break;
                 }
                 break;
 
             case 5:
-                opcao = menu_player();
+                opcao = interfaceAssistir();
                 switch (opcao){
                     case 1:
-                        selecionar_para_assistir();
+                        selecionarFilme();
                         break;
                     case 2:
-                        listar_historico();
+                        listarHistorico();
                         utilizador_logado->atividade ++;
                         break;
                     case 3:
-                        filmes_recomendados();
+                        filmesRecomendados();
                         utilizador_logado->atividade ++;
                         break;
                 }
@@ -115,13 +115,13 @@ int main() {
                 break;
 
             case 0:
-                gravar_dados_utilizador_CSV(
+                adicionarOuEditarUser(
                     utilizador_logado->id, utilizador_logado->utilizador, utilizador_logado->idade, utilizador_logado->senha,
                     utilizador_logado->status, utilizador_logado->atividade, utilizador_logado->historico,
                     utilizador_logado->personalizada, utilizador_logado->favoritos
                 );
         
-                liberar_memoria_filmes();
+                limparListaFilmes();
                 system("cls");
                 printf("\n\n========== Obrigado Por Escolher a Streamflix, Volte Sempre :) ==========\n\n");
                 printf("\n");

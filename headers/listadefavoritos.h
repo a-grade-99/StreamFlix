@@ -9,10 +9,10 @@
 #include "databasetomemory.h"
 #include "databasetools.h"
 
-void remover_id_da_lista(char *lista, int id_remover);
-int id_ja_existe(const char *lista, int id);
-void criar_lista_personalizada_favoritos();
-void consultar_lista_personalizada_ou_favoritos();
-void editar_ou_apagar_lista_personalizada_ou_favorito();
+void removerIdDaLista(char *lista, int id_remover);
+int idExiste(const char *lista, int id);
+void criarLista();
+void consultarLista();
+void editarOuApagarLista();
 
 #endif

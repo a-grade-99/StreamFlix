@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 
-void adicionar_editar_conteudo();
-void remover_conteudo();
+void interfaceAdicionarOuEditarFilme();
+void interfaceRemoverFilme();
 
 #endif

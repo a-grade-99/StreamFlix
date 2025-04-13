@@ -2,7 +2,8 @@
 //pesquisadeconteudo.c
 #include "pesquisadeconteudo.h"
 
-void pesquisar_por_titulo() {
+// Função para pesquisar filmes por título
+void pesquisarPorTitulo() {
     char titulo[100];
 
     while (1) {
@@ -44,7 +45,8 @@ void pesquisar_por_titulo() {
     }
 }
 
-void pesquisar_por_categoria() {
+// Função para pesquisar filmes por categoria
+void pesquisarPorCategoria() {
     char categoria;
 
     while (1) {
@@ -86,7 +88,8 @@ void pesquisar_por_categoria() {
     }
 }
 
-void pesquisar_por_faixa_etaria() {
+// Função para pesquisar filmes por faixa etária
+void pesquisarPorFaixaEtaria() {
     int idade;
 
     while (1) {

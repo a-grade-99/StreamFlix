@@ -1,9 +1,8 @@
-
-//edicaodeconteudo.c
 #include "edicaodeconteudo.h"
 #include "databasetools.h"
 
-void adicionar_editar_conteudo(){
+// Interface para adicionar ou editar um filme
+void interfaceAdicionarOuEditarFilme(){
     char titulo[100];
     char categoria;
     unsigned int duracao;
@@ -38,13 +37,14 @@ void adicionar_editar_conteudo(){
         
 
         if (validacao == 'Y' || validacao == 'y'){
-            gravar_dados_filmes_CSV(titulo, categoria, duracao, classificacao);
+            adicionarOuEditarFilme(titulo, categoria, duracao, classificacao);
             break;
         }
     }
 }
 
-void remover_conteudo(){
+// Interface para remover um filme
+void interfaceRemoverFilme(){
 
     char titulo[100];
 
@@ -56,6 +56,6 @@ void remover_conteudo(){
     fgets(titulo, sizeof(titulo), stdin);
     titulo[strcspn(titulo, "\n")] = '\0'; // Remove a quebra de linha
 
-    apagar_dados_filmes_CSV(titulo);
+    apagarFilme(titulo);
 
 }
