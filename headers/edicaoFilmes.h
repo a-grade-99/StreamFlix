@@ -1,7 +1,5 @@
-
-//edicaodeconteudo.h
-#ifndef EDICAODECONTEUDO_H
-#define EDICAODECONTEUDO_H
+#ifndef EDICAOFILMES_H
+#define EDICAOFILMES_H
 
 #include <stdio.h>
 

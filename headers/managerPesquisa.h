@@ -1,6 +1,5 @@
-//pesquisadeconteudo.h
-#ifndef PESQUISADECONTEUDO_H
-#define PESQUISADECONTEUDO_H
+#ifndef MANAGERPESQUISA_H
+#define MANAGERPESQUISA_H
 
 #include "storageManager.h"
 

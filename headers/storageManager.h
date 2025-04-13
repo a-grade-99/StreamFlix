@@ -1,14 +1,11 @@
-
-//databasetomemory.h
-#ifndef DATABASETOMEMORY_H
-#define DATABASETOMEMORY_H
+#ifndef STORAGEMANAGER_H
+#define STORAGEMANAGER_H
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 // Estruturas Globais
-
 typedef struct Filme {
     int id;
     char titulo[100];

@@ -1,7 +1,5 @@
-
-//databasetools.h
-#ifndef DATABASETOOLS_H
-#define DATABASETOOLS_H
+#ifndef DATAUTILS_H
+#define DATAUTILS_H
 
 #include <stdio.h>
 #include <stdlib.h>

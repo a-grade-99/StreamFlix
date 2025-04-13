@@ -36,7 +36,7 @@ int interfaceMenuPrincipal(char *utilizador) {
     system("cls");
     printf("\n\n============ MENU PRINCIPAL ============\n\n");
     printf("Olá: %s\n\n", utilizador);
-    printf("1 ==> Editar Filmes (Apenas Admins).\n");
+    printf("1 ==> Editar Filmes.\n");
     printf("2 ==> Pesquisar um Filme.\n");
     printf("3 ==> Lista Personalizada de Filmes.\n");
     printf("4 ==> As suas Métricas.\n");

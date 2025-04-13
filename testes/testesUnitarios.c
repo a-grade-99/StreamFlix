@@ -58,7 +58,7 @@ void mock_system_cls() {
 }
 
 //=======================
-// Testes para databasetomemory.c
+// Testes para storageManager.c
 //=======================
 
 void test_guardarFilmesCsv() {
@@ -187,7 +187,7 @@ void test_autenticarUtilizadorCsv() {
 }
 
 //=======================
-// Testes para databasetools.c
+// Testes para dataUtils.c
 //=======================
 
 void test_tituloExiste() {
@@ -333,7 +333,7 @@ void test_apagarFilme() {
 }
 
 //=======================
-// Testes para pesquisadeconteudo.c
+// Testes para managerPesquisa.c
 //=======================
 
 // Testar funções de pesquisa é complicado pois elas interagem diretamente com printf

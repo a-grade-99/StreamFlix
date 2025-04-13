@@ -1,7 +1,5 @@
-//metricas.h
 #ifndef METRICAS_H
 #define METRICAS_H
-
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,7 +1,5 @@
-
-//listadefavoritos.h
-#ifndef LISTADEFAVORITOS_H
-#define LISTADEFAVORITOS_H
+#ifndef MANAGERLISTAS_H
+#define MANAGERLISTAS_H
 
 #include <stdio.h>
 #include <stdlib.h>

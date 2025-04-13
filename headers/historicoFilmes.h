@@ -1,6 +1,5 @@
-//player.h
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef HISTORICOFILMES_H
+#define HISTORICOFILMES_H
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,6 +1,5 @@
-//userinterface.h
-#ifndef USERINTERFACE_H
-#define USERINTERFACE_H
+#ifndef MAININTERFACE_H
+#define MAININTERFACE_H
 
 #include <stdio.h>
 #include <stdlib.h>
