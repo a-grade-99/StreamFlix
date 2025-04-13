@@ -1,5 +1,3 @@
-
-//databasetomemory.c
 #include "databasetomemory.h"
 
 #define FILE_PATH "filmes.csv"
